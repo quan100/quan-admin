@@ -1,66 +1,81 @@
-<h1 align="center">Quan Admin</h1>
+<p align="center">
+	<img alt="logo" src="https://file.javaquan.cn/public/logo.png">
+</p>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Quan v2.2.0</h1>
+<h4 align="center">基于Java语言的轻量级、高性能、分布式架构的解决方案</h4>
+<p align="center">
+	<a href="https://gitee.com/quan100/quan/stargazers"><img src="https://gitee.com/quan100/quan/badge/star.svg"></a>
+	<a href="https://gitee.com/quan100/quan/blob/main/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
+    <a href="https://gitee.com/quan100/quan/issues" target="_blank">
+        <img alt="Issues" src="https://img.shields.io/github/issues/quan100/quan?color=0088ff" class="no-zoom"/>
+    </a>
+</p>
 
-<div align="center">
+## 系统简介
 
-Quan 后台管理系统。基于 Ant Design Pro 5.0
+一直想将自己的工作经验沉淀下来，做一套后台管理系统。采用的技术并非最流行、最新的技术，而是取决于自己学习的方向和工作中采用的解决方案；以此来巩固多年来沉淀下来的经验。
 
-![](https://user-images.githubusercontent.com/8186664/44953195-581e3d80-aec4-11e8-8dcb-54b9db38ec11.png)
+Quan是一套全部开源的后台管理系统，毫无保留开源提供给大家一起学习交流或应用于企业免费使用。
 
-</div>
+目前的版本主要实现了简单的博客相关管理功能，更多其它功能敬请期待。
 
-## Ant Design Pro 🎉🎉🎉
+* 服务端实现：[quan-admin](https://gitee.com/quan100/quan)
+* 感谢 [And Design Pro](https://github.com/ant-design/ant-design-pro) 中台前端/设计解决方案。
 
-[Ant Design Pro 5.0.0](https://github.com/ant-design/ant-design-pro/issues/8656)
+## 内置功能
 
-- 预览：http://preview.pro.ant.design
-- 首页：http://pro.ant.design/index-cn
-- 使用文档：http://pro.ant.design/docs/getting-started-cn
-- 更新日志: http://pro.ant.design/docs/changelog-cn
-- 常见问题：http://pro.ant.design/docs/faq-cn
-- 国内镜像：http://ant-design-pro.gitee.io
+1. 工具管理：该功能主要提供前端展示的工具配置，用于在线快捷工具跳转。
+2. 文章管理：基于[mavon-editor](https://github.com/imzbf/md-editor-rt)实现的文章发布功能。
+3. 分类管理：配置文章的分类。
+4. 标签管理：配置文章的标签。
+5. 用户信息管理：用于管理后台用户的基本信息。
+6. 系统账号管理：用于管理后台登录账号信息，可实现账号密码登录。
+7. 第三方账号管理：用于管理第三方账号标识，目前实现邮箱登录、钉钉登录。
+8. 权限管理：配置系统菜单，按钮权限标识等。
+9. 角色管理：基于 RBAC 权限模型分配角色权限。
+10. 字典管理：对系统中使用的一些固定配置参数进行维护。
 
-## 功能
+## 在线体验
 
-```
-- 文章管理
-  - 查询表格
-  - 新增/编辑文章
-  - 删除文章
-- 分类管理
-  - 查询表格
-  - 新增/编辑分类
-  - 删除分类
-- 字典管理
-  - 查询表格
-  - 新增/编辑字典
-  - 删除字典
-- 系统管理
-  - 权限管理
-    - 查询表格
-    - 新增/编辑权限
-    - 删除权限
-  - 角色管理
-    - 查询表格
-    - 新增/编辑角色
-    - 删除权限  
-    - 角色授权
-- 标签管理
-  - 查询表格
-  - 新增/编辑标签
-  - 删除标签
-- 用户管理
-- 帐户
-  - 登录
-```
+- 账号：test
+- 密码：123456
 
-## 使用
+演示地址：https://admin.javaquan.cn  
+文档地址：https://doc.javaquan.cn
 
-安装依赖：
+## 演示图
 
-```shell
-$ cd quan-admin && tyarn
-// 或
-$ cd quan-admin && npm install
-```
+<table>
+    <tr>
+        <td><img alt=""  src="https://oscimg.oschina.net/oscnet/up-dd3d77218052645b0a34f62353d404a5a54.jpg" /></td>
+        <td><img alt=""  src="https://oscimg.oschina.net/oscnet/up-f6f12e95f58592b63b4ad26e7f84da91258.jpg" /></td>
+    </tr>
+    <tr>
+        <td><img alt=""  src="https://oscimg.oschina.net/oscnet/up-1de36bcb6b96b9bb80377f4d8ded0999286.jpg" /></td>
+        <td><img alt=""  src="https://oscimg.oschina.net/oscnet/up-6aa23a95444b23ab0a6079aff188282bd80.jpg" /></td>
+    </tr>
+    <tr>
+        <td><img alt=""  src="https://oscimg.oschina.net/oscnet/up-b48e9e7073f88cdbdb1f98077f2dddb64f3.jpg" /></td>
+        <td><img alt=""  src="https://oscimg.oschina.net/oscnet/up-f3143652863d409bd2c616a5af7ed3fce93.jpg" /></td>
+    </tr>
+    <tr>    
+        <td><img alt=""  src="https://oscimg.oschina.net/oscnet/up-0ea5ce438622dcef6445b71d279de69a583.jpg" /></td>
+        <td><img alt=""  src="https://oscimg.oschina.net/oscnet/up-77a53eb9e03b06f0253e3f27625e0075a80.jpg" /></td>
+    </tr>
+    <tr>    
+        <td><img alt=""  src="https://oscimg.oschina.net/oscnet/up-23d257d215fc21283739977bb76f269501c.jpg" /></td>
+        <td><img alt=""  src="https://oscimg.oschina.net/oscnet/up-98b4d284a4e1ead7abece51107488dc02ec.jpg" /></td>
+    </tr>
+    <tr>    
+        <td><img alt=""  src="https://oscimg.oschina.net/oscnet/up-49625f67bcdcfaa2bdb18b4ee1b8fb9279b.jpg" /></td>
+        <td><img alt=""  src="https://oscimg.oschina.net/oscnet/up-1b04ed8474595b4e810cb3438076f7b7299.jpg" /></td>
+    </tr>
+    <tr> 
+        <td><img alt=""  src="https://oscimg.oschina.net/oscnet/up-db580de4675beb3ca9360fdbe03431e70c3.jpg" /></td>
+    </tr>
+</table>
 
-更多信息请参考 Ant Design [使用文档](http://pro.ant.design/docs/getting-started)。
+
+## Quan 交流群
+
+QQ群：185288818

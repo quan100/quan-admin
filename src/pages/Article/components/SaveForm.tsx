@@ -74,6 +74,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
         content: props.values.content,
         categoryId: props.values.categoryId,
         tagIdList: props.values.tagIdList,
+        topping: props.values.topping,
       }}
       drawerProps={{
         destroyOnClose: true,
@@ -275,6 +276,38 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
             disabled={disabled}
           />
           <ProFormRadio.Group
+            name="topping"
+            width="md"
+            label={
+              intl.formatMessage({ id: 'pages.article.topping.label', })
+            }
+            tooltip={
+              intl.formatMessage({ id: 'pages.article.topping.tooltip', })
+            }
+            fieldProps={{
+              defaultValue: 0,
+              optionType: "button",
+              buttonStyle: "solid",
+              // onChange: ({ target: { value } }) => {
+              // }
+            }}
+            options={[
+              {
+                label: intl.formatMessage({
+                  id: 'pages.common.boolean.false',
+                }),
+                value: false,
+              },
+              {
+                label: intl.formatMessage({
+                  id: 'pages.common.boolean.true',
+                }),
+                value: true,
+              },
+            ]}
+            disabled={disabled}
+          />
+          <ProFormRadio.Group
             name="status"
             width="md"
             label={
@@ -389,15 +422,15 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
             options={[
               {
                 label: intl.formatMessage({
-                  id: 'pages.article.authorAccountsPublic.off',
+                  id: 'pages.common.boolean.false',
                 }),
-                value: 0,
+                value: false,
               },
               {
                 label: intl.formatMessage({
-                  id: 'pages.article.authorAccountsPublic.on',
+                  id: 'pages.common.boolean.true',
                 }),
-                value: 1,
+                value: true,
               },
             ]}
             rules={[{

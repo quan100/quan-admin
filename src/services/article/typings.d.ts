@@ -140,6 +140,11 @@ declare namespace API {
     categoryId?: string;
 
     tagIdList?: string[];
+
+    /**
+     * 是否置顶
+     */
+    topping?: boolean;
   };
 
   type ArticleContent = {

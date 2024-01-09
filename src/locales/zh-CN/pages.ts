@@ -105,6 +105,8 @@ export default {
   'pages.common.tag.placeholder': '请选择标签',
   'pages.common.sex': '性别',
   'pages.common.sex.placeholder': '请选择性别',
+  'pages.common.boolean.true': '是',
+  'pages.common.boolean.false': '否',
 
   'pages.system.command.refresh.gatewayCache': '刷新网关权限缓存',
   'pages.system.command.refresh.sitemap': '刷新站点地图配置',
@@ -208,8 +210,6 @@ export default {
   'pages.article.authorAccountsPublic': '作者信息',
   'pages.article.authorAccountsPublic.tooltip': '作者的联系方式',
   'pages.article.authorAccountsPublic.placeholder': '请选择作者信息是否公开',
-  'pages.article.authorAccountsPublic.off': '不公开',
-  'pages.article.authorAccountsPublic.on': '公开',
   'pages.article.type': '文章类型',
   'pages.article.type.placeholder': '请选择文章类型',
   'pages.article.type.1': '原创',
@@ -240,6 +240,9 @@ export default {
 
   'pages.article.card.content.title': '文章内容',
   'pages.article.card.params.title': '文章设置',
+
+  'pages.article.topping.label': '是否置顶',
+  'pages.article.topping.tooltip': '是否将文章置顶',
 
   'pages.tools.title': '标题',
   'pages.tools.title.placeholder': '请输入标题',

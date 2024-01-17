@@ -17,6 +17,7 @@ import TagProFormSelect from "@/components/Quan/Tag/Select";
 import {
   api
 } from '@/services/file/api';
+import DictionaryFormSelect from "@/components/Quan/Dictionary/Select";
 
 export type UpdateFormProps = {
   onCancel: (flag?: boolean, formVals?: API.Article) => void;
@@ -236,12 +237,25 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
             }]}
             disabled={disabled}
           />
-          <ProFormText
+          <DictionaryFormSelect
             name="jumpType"
+            code="commonListJumpType"
             width="md"
             label={
-              intl.formatMessage({ id: 'pages.article.jumpType', })
+              intl.formatMessage({
+                id: 'pages.article.jumpType',
+              })
             }
+            placeholder={
+              intl.formatMessage({
+                id: 'pages.article.jumpType.placeholder',
+              })
+            }
+            rules={[{
+              required: true, message: intl.formatMessage({
+                id: 'pages.article.jumpType.placeholder',
+              })
+            }]}
             disabled={disabled}
           />
           <ProFormText

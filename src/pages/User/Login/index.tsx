@@ -14,10 +14,11 @@ import {
   ProFormCaptcha,
   ProFormCheckbox,
   ProFormText,
+  ProConfigProvider,
 } from '@ant-design/pro-components';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
 import { FormattedMessage, history, SelectLang, useIntl, useModel, Helmet } from '@umijs/max';
-import { Alert, message, Tabs, Button, Space, Divider, QRCode, Spin, Modal } from 'antd';
+import { Alert, message, Tabs, Button, Space, Divider, QRCode, Spin, Modal, theme } from 'antd';
 import Settings from '../../../../config/defaultSettings';
 import React, { CSSProperties, useState } from 'react';
 import { flushSync } from 'react-dom';
@@ -26,33 +27,13 @@ import { auth, dingtalkBound } from "@/services/auth/tripartiteLogin";
 
 const { confirm } = Modal;
 
+type LoginType = 'email' | 'account';
+
 const iconStyles: CSSProperties = {
   color: 'rgba(0, 0, 0, 0.2)',
   fontSize: '18px',
   verticalAlign: 'middle',
   cursor: 'pointer',
-};
-
-const ActionIcons = () => {
-  const langClassName = useEmotionCss(({ token }) => {
-    return {
-      marginLeft: '8px',
-      color: 'rgba(0, 0, 0, 0.2)',
-      fontSize: '24px',
-      verticalAlign: 'middle',
-      cursor: 'pointer',
-      transition: 'color 0.3s',
-      '&:hover': {
-        color: token.colorPrimaryActive,
-      },
-    };
-  });
-
-  return (
-    <>
-      <DingtalkOutlined key="DingtalkOutlined" className={langClassName}/>
-    </>
-  );
 };
 
 const Lang = () => {
@@ -92,9 +73,10 @@ const LoginMessage: React.FC<{
   );
 };
 
-const Login: React.FC = () => {
+const Page = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
-  const [type, setType] = useState<string>('account');
+  const [loginType, setLoginType] = useState<LoginType>('account');
+  const { token } = theme.useToken();
   const { initialState, setInitialState } = useModel('@@initialState');
 
   const containerClassName = useEmotionCss(() => {
@@ -138,7 +120,7 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.LoginParams) => {
     try {
       // 登录
-      const msg = await login({ ...values, type });
+      const msg = await login({ ...values, loginType });
       if (msg.code === 200) {
         await handleLoginSuccess(undefined, msg.data);
         return;
@@ -150,7 +132,7 @@ const Login: React.FC = () => {
       handleChangeImgCaptcha()
     }
   };
-  const { code, type: loginType } = userLoginState;
+  const { code, type } = userLoginState;
   const [imgCaptchaVisible, setImgCaptchaVisible] = React.useState(false);
   const [imgCaptcha, setImgCaptcha] = React.useState('/checkcode.png');
 
@@ -270,17 +252,23 @@ const Login: React.FC = () => {
           <LoginFormPage
             backgroundImageUrl="https://gw.alipayobjects.com/zos/rmsportal/FfdJeJRQWjEeGTpqgBKj.png"
             // logo="https://quan.icu/logo.png"
+            backgroundVideoUrl="https://gw.alipayobjects.com/v/huamei_gcee1x/afts/video/jXRBRK_VAwoAAAAAAAAAAAAAK4eUAQBr"
             title={<img src="/title-logo.png"/>}
             subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
             initialValues={{
               autoLogin: true,
             }}
+            containerStyle={{
+              backgroundColor: 'rgba(0, 0, 0,0.65)',
+              backdropFilter: 'blur(4px)',
+            }}
             activityConfig={{
               style: {
                 boxShadow: '0px 0px 8px rgba(0, 0, 0, 0.2)',
-                color: 'rgba(0, 0, 0, 0.65)',
+                color: token.colorTextHeading,
                 borderRadius: 8,
-                backgroundColor: '#ffffff',
+                backgroundColor: 'rgba(255,255,255,0.25)',
+                backdropFilter: 'blur(4px)',
               },
               title: (
                 <img src="/title-logo.png"/>
@@ -291,8 +279,8 @@ const Login: React.FC = () => {
                   size="large"
                   style={{
                     borderRadius: 20,
-                    background: '#fff',
-                    color: '#1677FF',
+                    background: token.colorBgElevated,
+                    color: token.colorPrimary,
                     width: 120,
                   }}
                   onClick={function () {
@@ -317,7 +305,11 @@ const Login: React.FC = () => {
               >
                 <Divider plain>
                   <span
-                    style={{ color: '#CCC', fontWeight: 'normal', fontSize: 14 }}
+                    style={{
+                      color: token.colorTextPlaceholder,
+                      fontWeight: 'normal',
+                      fontSize: 14,
+                    }}
                   >
                     <FormattedMessage
                       key="loginWith"
@@ -375,31 +367,47 @@ const Login: React.FC = () => {
           >
             {!otherLoginType && (
               <div>
+                {/*<Tabs*/}
+                {/*  activeKey={type}*/}
+                {/*  onChange={setType}*/}
+                {/*  centered*/}
+                {/*  items={[*/}
+                {/*    {*/}
+                {/*      key: 'account',*/}
+                {/*      label: intl.formatMessage({*/}
+                {/*        id: 'pages.login.accountLogin.tab',*/}
+                {/*      }),*/}
+                {/*    },*/}
+                {/*    // {*/}
+                {/*    //   key: 'mobile',*/}
+                {/*    //   label: intl.formatMessage({*/}
+                {/*    //     id: 'pages.login.phoneLogin.tab',*/}
+                {/*    //   }),*/}
+                {/*    // },*/}
+                {/*    {*/}
+                {/*      key: 'email',*/}
+                {/*      label: intl.formatMessage({*/}
+                {/*        id: 'pages.login.emailLogin.tab',*/}
+                {/*      }),*/}
+                {/*    },*/}
+                {/*  ]}*/}
+                {/*/>*/}
                 <Tabs
-                  activeKey={type}
-                  onChange={setType}
                   centered
-                  items={[
-                    {
-                      key: 'account',
-                      label: intl.formatMessage({
-                        id: 'pages.login.accountLogin.tab',
-                      }),
-                    },
-                    // {
-                    //   key: 'mobile',
-                    //   label: intl.formatMessage({
-                    //     id: 'pages.login.phoneLogin.tab',
-                    //   }),
-                    // },
-                    {
-                      key: 'email',
-                      label: intl.formatMessage({
-                        id: 'pages.login.emailLogin.tab',
-                      }),
-                    },
-                  ]}
-                />
+                  activeKey={loginType}
+                  onChange={(activeKey) => setLoginType(activeKey as LoginType)}
+                >
+                  <Tabs.TabPane key={'account'} tab={
+                    intl.formatMessage({
+                      id: 'pages.login.accountLogin.tab',
+                    })
+                  } />
+                  <Tabs.TabPane key={'email'} tab={
+                    intl.formatMessage({
+                      id: 'pages.login.emailLogin.tab',
+                    })
+                  } />
+                </Tabs>
 
                 {code !== 200 && loginType === 'account' && (
                   <LoginMessage
@@ -408,13 +416,20 @@ const Login: React.FC = () => {
                     })}
                   />
                 )}
-                {type === 'account' && (
+                {loginType === 'account' && (
                   <>
                     <ProFormText
                       name="account"
                       fieldProps={{
                         size: 'large',
-                        prefix: <UserOutlined/>,
+                        prefix: (
+                          <UserOutlined
+                            style={{
+                              color: token.colorText,
+                            }}
+                            className={'prefixIcon'}
+                          />
+                        ),
                       }}
                       placeholder={intl.formatMessage({
                         id: 'pages.login.username.placeholder',
@@ -434,7 +449,14 @@ const Login: React.FC = () => {
                       name="password"
                       fieldProps={{
                         size: 'large',
-                        prefix: <LockOutlined/>,
+                        prefix: (
+                          <LockOutlined
+                            style={{
+                              color: token.colorText,
+                            }}
+                            className={'prefixIcon'}
+                          />
+                        ),
                       }}
                       placeholder={intl.formatMessage({
                         id: 'pages.login.password.placeholder',
@@ -492,82 +514,63 @@ const Login: React.FC = () => {
                 )}
 
                 {code !== 200 && loginType === 'mobile' && <LoginMessage content="验证码错误"/>}
-                {type === 'mobile' && (
+                {loginType === 'phone' && (
                   <>
                     <ProFormText
                       fieldProps={{
                         size: 'large',
-                        prefix: <MobileOutlined/>,
+                        prefix: (
+                          <MobileOutlined
+                            style={{
+                              color: token.colorText,
+                            }}
+                            className={'prefixIcon'}
+                          />
+                        ),
                       }}
                       name="mobile"
-                      placeholder={intl.formatMessage({
-                        id: 'pages.login.phoneNumber.placeholder',
-                        defaultMessage: '手机号',
-                      })}
+                      placeholder={'手机号'}
                       rules={[
                         {
                           required: true,
-                          message: (
-                            <FormattedMessage
-                              id="pages.login.phoneNumber.required"
-                              defaultMessage="请输入手机号！"
-                            />
-                          ),
+                          message: '请输入手机号！',
                         },
                         {
                           pattern: /^1\d{10}$/,
-                          message: (
-                            <FormattedMessage
-                              id="pages.login.phoneNumber.invalid"
-                              defaultMessage="手机号格式错误！"
-                            />
-                          ),
+                          message: '手机号格式错误！',
                         },
                       ]}
                     />
                     <ProFormCaptcha
                       fieldProps={{
                         size: 'large',
-                        prefix: <LockOutlined/>,
+                        prefix: (
+                          <LockOutlined
+                            style={{
+                              color: token.colorText,
+                            }}
+                            className={'prefixIcon'}
+                          />
+                        ),
                       }}
                       captchaProps={{
                         size: 'large',
                       }}
-                      placeholder={intl.formatMessage({
-                        id: 'pages.login.captcha.placeholder',
-                        defaultMessage: '请输入验证码',
-                      })}
+                      placeholder={'请输入验证码'}
                       captchaTextRender={(timing, count) => {
                         if (timing) {
-                          return `${count} ${intl.formatMessage({
-                            id: 'pages.getCaptchaSecondText',
-                            defaultMessage: '获取验证码',
-                          })}`;
+                          return `${count} ${'获取验证码'}`;
                         }
-                        return intl.formatMessage({
-                          id: 'pages.login.phoneLogin.getVerificationCode',
-                          defaultMessage: '获取验证码',
-                        });
+                        return '获取验证码';
                       }}
                       name="captcha"
                       rules={[
                         {
                           required: true,
-                          message: (
-                            <FormattedMessage
-                              id="pages.login.captcha.required"
-                              defaultMessage="请输入验证码！"
-                            />
-                          ),
+                          message: '请输入验证码！',
                         },
                       ]}
-                      onGetCaptcha={async (phone) => {
-                        const result = await getFakeCaptcha({
-                          phone,
-                        });
-                        if (!result) {
-                          return;
-                        }
+                      onGetCaptcha={async () => {
                         message.success('获取验证码成功！验证码为：1234');
                       }}
                     />
@@ -575,12 +578,19 @@ const Login: React.FC = () => {
                 )}
 
                 {code !== 200 && loginType === 'email' && <LoginMessage content="验证码错误"/>}
-                {type === 'email' && (
+                {loginType === 'email' && (
                   <>
                     <ProFormText
                       fieldProps={{
                         size: 'large',
-                        prefix: <MailOutlined/>,
+                        prefix: (
+                          <MailOutlined
+                            style={{
+                              color: token.colorText,
+                            }}
+                            className={'prefixIcon'}
+                          />
+                        ),
                       }}
                       name="email"
                       placeholder={intl.formatMessage({
@@ -608,7 +618,14 @@ const Login: React.FC = () => {
                     <ProFormCaptcha
                       fieldProps={{
                         size: 'large',
-                        prefix: <LockOutlined/>,
+                        prefix: (
+                          <LockOutlined
+                            style={{
+                              color: token.colorText,
+                            }}
+                            className={'prefixIcon'}
+                          />
+                        ),
                       }}
                       captchaProps={{
                         size: 'large',
@@ -661,7 +678,7 @@ const Login: React.FC = () => {
                   <ProFormCheckbox noStyle name="autoLogin">
                     <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录"/>
                   </ProFormCheckbox>
-                  {type === 'account' && (
+                  {loginType === 'account' && (
                     <a
                       style={{
                         float: 'right',
@@ -684,4 +701,10 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default () => {
+  return (
+    <ProConfigProvider dark>
+      <Page />
+    </ProConfigProvider>
+  );
+};

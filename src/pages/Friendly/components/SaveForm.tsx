@@ -1,6 +1,6 @@
 import {
   DrawerForm, ProFormDigit, ProFormInstance, ProFormRadio,
-  ProFormText,
+  ProFormText, ProFormTextArea,
 } from '@ant-design/pro-components';
 import { useIntl } from '@umijs/max';
 import React, { useRef } from "react";
@@ -159,7 +159,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
         disabled={disabled}
       />
       <DictionaryProFormRadioGroup
-        name="thirdBindStatus"
+        name="emailPublic"
         code="third_bind_status"
         width="md"
         label={
@@ -216,41 +216,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
         }]}
         disabled={disabled}
       />
-      <ProFormText
-        name="color"
-        width="md"
-        label={
-          intl.formatMessage({
-            id: 'pages.tag.color',
-          })
-        }
-        tooltip={
-          intl.formatMessage({
-            id: 'pages.tag.color.tooltip',
-          })
-        }
-        placeholder={
-          intl.formatMessage({
-            id: 'pages.tag.color.placeholder',
-          })
-        }
-        disabled={disabled}
-      />
-      <ProFormText
-        name="icon"
-        width="md"
-        label={
-          intl.formatMessage({
-            id: 'pages.tag.icon',
-          })
-        }
-        placeholder={
-          intl.formatMessage({
-            id: 'pages.tag.icon.placeholder',
-          })
-        }
-        disabled={disabled}
-      />
       <ProFormDigit
         name="sort"
         width="xs"
@@ -268,6 +233,35 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
         }
         placeholder={
           intl.formatMessage({ id: 'pages.common.sort.placeholder', })
+        }
+        disabled={disabled}
+      />
+      <ProFormTextArea
+        name="remarks"
+        width="md"
+        label={
+          intl.formatMessage({
+            id: 'pages.friendly.remarks',
+          })
+        }
+        placeholder={
+          intl.formatMessage({ id: 'pages.friendly.remarks.placeholder', })
+        }
+        disabled={disabled}
+      />
+      <ProFormTextArea
+        name="style"
+        width="md"
+        label={
+          intl.formatMessage({
+            id: 'pages.friendly.style',
+          })
+        }
+        tooltip={
+          intl.formatMessage({ id: 'pages.common.style.tooltip', })
+        }
+        placeholder={
+          intl.formatMessage({ id: 'pages.friendly.style.placeholder', })
         }
         disabled={disabled}
       />

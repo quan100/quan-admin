@@ -107,6 +107,9 @@ export default {
   'pages.common.sex.placeholder': '请选择性别',
   'pages.common.boolean.true': '是',
   'pages.common.boolean.false': '否',
+  'pages.common.style': '样式',
+  'pages.common.style.placeholder': '请输入样式',
+  'pages.common.style.tooltip': '当前仅支持背景色',
 
   'pages.system.command.refresh.gatewayCache': '刷新网关权限缓存',
   'pages.system.command.refresh.sitemap': '刷新站点地图配置',

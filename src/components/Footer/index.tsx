@@ -2,7 +2,7 @@ import { DefaultFooter } from '@ant-design/pro-components';
 import { useIntl } from '@umijs/max';
 import React from 'react';
 
-const Footer: React.FC = () => {
+const Footer: React.FC<any> = ({ background = 'none', ...props }) => {
   const intl = useIntl();
   const defaultMessage = intl.formatMessage({
     id: 'app.copyright.produced',
@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
   return (
     <DefaultFooter
       style={{
-        background: 'none',
+        background: background,
       }}
       copyright={`${currentYear} ${defaultMessage}`}
       links={[

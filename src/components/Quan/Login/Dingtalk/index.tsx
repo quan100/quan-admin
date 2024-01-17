@@ -153,6 +153,10 @@ const DingtalkLogin: React.FC<LoginProps> = ({ ...props }) => {
     >
       <ProCard
         layout={"center"}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
+          borderRadius: "unset",
+        }}
       >
         <div
           style={{
@@ -175,6 +179,9 @@ const DingtalkLogin: React.FC<LoginProps> = ({ ...props }) => {
       <ProCard
         layout={"center"}
         ghost
+        bodyStyle={{
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
+        }}
       >
         <Spin tip={loadingMsg} spinning={loading}>
           <div id="ding-login-auth-img"></div>

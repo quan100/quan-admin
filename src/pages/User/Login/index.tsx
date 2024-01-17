@@ -280,13 +280,13 @@ const Login: React.FC = () => {
               autoLogin: true,
             }}
             containerStyle={{
-              backgroundColor: 'rgba(0, 0, 0,0.65)',
+              // backgroundColor: 'rgba(0, 0, 0,0.65)',
               backdropFilter: 'blur(4px)',
             }}
             activityConfig={{
               style: {
                 boxShadow: '0px 0px 8px rgba(0, 0, 0, 0.2)',
-                color: token.colorTextHeading,
+                color: '#ffffff',
                 borderRadius: 8,
                 backgroundColor: 'rgba(255,255,255,0.25)',
                 backdropFilter: 'blur(4px)',
@@ -300,7 +300,8 @@ const Login: React.FC = () => {
                   size="large"
                   style={{
                     borderRadius: 20,
-                    background: token.colorBgElevated,
+                    border: 'none',
+                    background: 'rgb(31, 31, 31)',
                     color: token.colorPrimary,
                     width: 120,
                   }}
@@ -353,7 +354,7 @@ const Login: React.FC = () => {
                         flexDirection: 'column',
                         height: 40,
                         width: 40,
-                        border: '1px solid #D4D8DD',
+                        border: '1px solid ' + token.colorPrimaryBorder,
                         borderRadius: '50%',
                       }}
                     >
@@ -382,37 +383,12 @@ const Login: React.FC = () => {
                     }}
                     login={tripartiteLogin}
                   />
-                  : dom[1]
+                  : dom[0]
               )),
             }}
           >
             {!otherLoginType && (
               <div>
-                {/*<Tabs*/}
-                {/*  activeKey={type}*/}
-                {/*  onChange={setType}*/}
-                {/*  centered*/}
-                {/*  items={[*/}
-                {/*    {*/}
-                {/*      key: 'account',*/}
-                {/*      label: intl.formatMessage({*/}
-                {/*        id: 'pages.login.accountLogin.tab',*/}
-                {/*      }),*/}
-                {/*    },*/}
-                {/*    // {*/}
-                {/*    //   key: 'mobile',*/}
-                {/*    //   label: intl.formatMessage({*/}
-                {/*    //     id: 'pages.login.phoneLogin.tab',*/}
-                {/*    //   }),*/}
-                {/*    // },*/}
-                {/*    {*/}
-                {/*      key: 'email',*/}
-                {/*      label: intl.formatMessage({*/}
-                {/*        id: 'pages.login.emailLogin.tab',*/}
-                {/*      }),*/}
-                {/*    },*/}
-                {/*  ]}*/}
-                {/*/>*/}
                 <Tabs
                   centered
                   activeKey={type}
@@ -433,8 +409,7 @@ const Login: React.FC = () => {
                       }),
                     },
                   ]}
-                >
-                </Tabs>
+                />
 
                 {code !== 200 && loginType === 'account' && (
                   <LoginMessage
@@ -752,7 +727,7 @@ const Login: React.FC = () => {
             )}
           </LoginFormPage>
         </div>
-        <Footer/>
+        <Footer background={'black'}/>
       </div>
     </Spin>
   );

@@ -344,4 +344,14 @@ export default {
   'pages.user.third.thirdType.placeholder': '请选择第三方账号类型',
   'pages.user.third.thirdBindStatus': '绑定状态',
   'pages.user.third.thirdBindStatus.placeholder': '请选择绑定状态',
+
+  'pages.friendly.name': '站点名称',
+  'pages.friendly.name.placeholder': '请输入站点名称',
+  'pages.friendly.name.tooltip': '链接站点的名称或昵称',
+  'pages.friendly.linkUrl': '链接',
+  'pages.friendly.linkUrl.placeholder': '请输入链接',
+  'pages.friendly.avatar': '图标地址',
+  'pages.friendly.avatar.placeholder': '请输入图标地址',
+  'pages.friendly.remarks': '网站描述',
+  'pages.friendly.remarks.placeholder': '请输入网站描述',
 };

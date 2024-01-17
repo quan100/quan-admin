@@ -13,7 +13,7 @@ import {
   ActionType, ProColumns,
 } from '@ant-design/pro-components';
 import { FormattedMessage, useIntl } from '@umijs/max';
-import { Button, message, Popconfirm, Tag } from 'antd';
+import { Button, message, Popconfirm, Tag, Avatar } from 'antd';
 import React, { useRef, useState } from 'react';
 import SaveForm from './components/SaveForm';
 import Icon from "@/components/Quan/Icon";
@@ -132,18 +132,22 @@ const Role: React.FC = () => {
     {
       title: <FormattedMessage id="pages.friendly.name"/>,
       dataIndex: 'name',
-    },
-    {
-      title: <FormattedMessage id="pages.friendly.linkUrl"/>,
-      dataIndex: 'linkUrl'
+      render: (dom, entity) => (
+        <a href={entity.linkUrl} target="_blank">{dom}</a>
+      ),
     },
     {
       title: <FormattedMessage id="pages.friendly.avatar"/>,
-      dataIndex: 'avatar'
+      dataIndex: 'avatar',
+      render: (avatar) => (
+        <Avatar src={avatar} />
+      ),
+      search: false
     },
     {
       title: <FormattedMessage id="pages.friendly.remarks"/>,
-      dataIndex: 'remarks'
+      dataIndex: 'remarks',
+      search: false
     },
     {
       title: <FormattedMessage id="pages.common.status"/>,
@@ -349,7 +353,8 @@ const Role: React.FC = () => {
         }}
         open={createModalOpen}
         values={{
-          type: 1,
+          emailPublic: false,
+          status: 0,
         }}
       />
       <SaveForm

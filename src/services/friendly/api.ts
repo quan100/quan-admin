@@ -3,11 +3,11 @@
 import { request } from '@umijs/max';
 
 export const api = {
-    page: "/api/friendly/page",
-    details: "/api/friendly/details",
-    update: "/api/friendly/update",
-    save: "/api/friendly/save",
-    remove: "/api/friendly/deleteByIds",
+    page: "/api/friendly/link/page",
+    details: "/api/friendly/link/details",
+    update: "/api/friendly/link/update",
+    save: "/api/friendly/link/save",
+    remove: "/api/friendly/link/deleteByIds",
 }
 
 /** 获取列表 GET */

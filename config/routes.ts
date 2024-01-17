@@ -43,6 +43,11 @@ export default [
     component: './Tools',
     access: 'canPath',
   },
+  {
+    path: '/friendly',
+    component: './Friendly',
+    access: 'canPath',
+  },
   // 系统管理
   {
     path: '/system/:appType/permission',

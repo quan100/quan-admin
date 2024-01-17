@@ -160,25 +160,25 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
       />
       <DictionaryProFormRadioGroup
         name="emailPublic"
-        code="third_bind_status"
+        code="boolean"
         width="md"
         label={
           intl.formatMessage({
-            id: 'pages.user.third.thirdBindStatus',
+            id: 'pages.friendly.emailPublic',
           })
         }
         placeholder={
           intl.formatMessage({
-            id: 'pages.user.third.thirdBindStatus.placeholder',
+            id: 'pages.friendly.emailPublic.placeholder',
           })
         }
         rules={[{
           required: true, message: intl.formatMessage({
-            id: 'pages.user.third.thirdBindStatus.placeholder',
+            id: 'pages.friendly.emailPublic.placeholder',
           })
         }]}
         fieldProps={{
-          defaultValue: 1,
+          defaultValue: false,
         }}
         disabled={disabled}
       />
@@ -254,14 +254,14 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
         width="md"
         label={
           intl.formatMessage({
-            id: 'pages.friendly.style',
+            id: 'pages.common.style',
           })
         }
         tooltip={
           intl.formatMessage({ id: 'pages.common.style.tooltip', })
         }
         placeholder={
-          intl.formatMessage({ id: 'pages.friendly.style.placeholder', })
+          intl.formatMessage({ id: 'pages.common.style.placeholder', })
         }
         disabled={disabled}
       />

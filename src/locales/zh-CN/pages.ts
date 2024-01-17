@@ -353,8 +353,12 @@ export default {
   'pages.friendly.name.tooltip': '链接站点的名称或昵称',
   'pages.friendly.linkUrl': '链接',
   'pages.friendly.linkUrl.placeholder': '请输入链接',
-  'pages.friendly.avatar': '图标地址',
+  'pages.friendly.avatar': '图标',
   'pages.friendly.avatar.placeholder': '请输入图标地址',
   'pages.friendly.remarks': '网站描述',
   'pages.friendly.remarks.placeholder': '请输入网站描述',
+  'pages.friendly.email': '邮箱',
+  'pages.friendly.email.placeholder': '请输入邮箱',
+  'pages.friendly.emailPublic': '是否公开邮箱',
+  'pages.friendly.emailPublic.placeholder': '请选择是否公开邮箱',
 };

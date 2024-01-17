@@ -14,20 +14,17 @@ import {
   ProFormCaptcha,
   ProFormCheckbox,
   ProFormText,
-  ProConfigProvider,
 } from '@ant-design/pro-components';
-import { useEmotionCss } from '@ant-design/use-emotion-css';
 import { FormattedMessage, history, SelectLang, useIntl, useModel, Helmet } from '@umijs/max';
 import { Alert, message, Tabs, Button, Space, Divider, QRCode, Spin, Modal, theme } from 'antd';
 import Settings from '../../../../config/defaultSettings';
 import React, { CSSProperties, useState } from 'react';
 import { flushSync } from 'react-dom';
+import { createStyles } from 'antd-style';
 import Dingtalk from "@/components/Quan/Login/Dingtalk";
 import { auth, dingtalkBound } from "@/services/auth/tripartiteLogin";
 
 const { confirm } = Modal;
-
-type LoginType = 'email' | 'account';
 
 const iconStyles: CSSProperties = {
   color: 'rgba(0, 0, 0, 0.2)',
@@ -36,9 +33,20 @@ const iconStyles: CSSProperties = {
   cursor: 'pointer',
 };
 
-const Lang = () => {
-  const langClassName = useEmotionCss(({ token }) => {
-    return {
+const useStyles = createStyles(({ token }) => {
+  return {
+    action: {
+      marginLeft: '8px',
+      color: 'rgba(0, 0, 0, 0.2)',
+      fontSize: '24px',
+      verticalAlign: 'middle',
+      cursor: 'pointer',
+      transition: 'color 0.3s',
+      '&:hover': {
+        color: token.colorPrimaryActive,
+      },
+    },
+    lang: {
       width: 42,
       height: 42,
       lineHeight: '42px',
@@ -48,12 +56,37 @@ const Lang = () => {
       ':hover': {
         backgroundColor: token.colorBgTextHover,
       },
-    };
-  });
+    },
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100vh',
+      overflow: 'auto',
+      backgroundImage:
+        "url('https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/V-_oS6r-i7wAAAAAAAAAAAAAFl94AQBr')",
+      backgroundSize: '100% 100%',
+    },
+  };
+});
+
+// const ActionIcons = () => {
+//   const { styles } = useStyles();
+//
+//   return (
+//     <>
+//       <AlipayCircleOutlined key="AlipayCircleOutlined" className={styles.action} />
+//       <TaobaoCircleOutlined key="TaobaoCircleOutlined" className={styles.action} />
+//       <WeiboCircleOutlined key="WeiboCircleOutlined" className={styles.action} />
+//     </>
+//   );
+// };
+
+const Lang = () => {
+  const { styles } = useStyles();
 
   return (
-    <div className={langClassName} data-lang>
-      {SelectLang && <SelectLang/>}
+    <div className={styles.lang} data-lang>
+      {SelectLang && <SelectLang />}
     </div>
   );
 };
@@ -73,24 +106,12 @@ const LoginMessage: React.FC<{
   );
 };
 
-const Page = () => {
+const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
-  const [loginType, setLoginType] = useState<LoginType>('account');
+  const [type, setType] = useState<string>('account');
   const { token } = theme.useToken();
   const { initialState, setInitialState } = useModel('@@initialState');
-
-  const containerClassName = useEmotionCss(() => {
-    return {
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100vh',
-      overflow: 'auto',
-      backgroundImage:
-        "url('https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/V-_oS6r-i7wAAAAAAAAAAAAAFl94AQBr')",
-      backgroundSize: '100% 100%',
-    };
-  });
-
+  const { styles } = useStyles();
   const intl = useIntl();
 
   const fetchUserInfo = async () => {
@@ -120,7 +141,7 @@ const Page = () => {
   const handleSubmit = async (values: API.LoginParams) => {
     try {
       // 登录
-      const msg = await login({ ...values, loginType });
+      const msg = await login({ ...values, type });
       if (msg.code === 200) {
         await handleLoginSuccess(undefined, msg.data);
         return;
@@ -132,7 +153,7 @@ const Page = () => {
       handleChangeImgCaptcha()
     }
   };
-  const { code, type } = userLoginState;
+  const { code, type: loginType } = userLoginState;
   const [imgCaptchaVisible, setImgCaptchaVisible] = React.useState(false);
   const [imgCaptcha, setImgCaptcha] = React.useState('/checkcode.png');
 
@@ -231,7 +252,7 @@ const Page = () => {
 
   return (
     <Spin spinning={loginLoading} tip={loginLoadingMsg}>
-      <div className={containerClassName}>
+      <div className={styles.container}>
         <Helmet>
           <title>
             {intl.formatMessage({
@@ -394,19 +415,25 @@ const Page = () => {
                 {/*/>*/}
                 <Tabs
                   centered
-                  activeKey={loginType}
-                  onChange={(activeKey) => setLoginType(activeKey as LoginType)}
+                  activeKey={type}
+                  onChange={setType}
+                  items={[
+                    {
+                      key: 'account',
+                      label: intl.formatMessage({
+                        id: 'pages.login.accountLogin.tab',
+                        defaultMessage: '账号登录',
+                      }),
+                    },
+                    {
+                      key: 'email',
+                      label: intl.formatMessage({
+                        id: 'pages.login.emailLogin.tab',
+                        defaultMessage: '邮箱登录',
+                      }),
+                    },
+                  ]}
                 >
-                  <Tabs.TabPane key={'account'} tab={
-                    intl.formatMessage({
-                      id: 'pages.login.accountLogin.tab',
-                    })
-                  } />
-                  <Tabs.TabPane key={'email'} tab={
-                    intl.formatMessage({
-                      id: 'pages.login.emailLogin.tab',
-                    })
-                  } />
                 </Tabs>
 
                 {code !== 200 && loginType === 'account' && (
@@ -416,7 +443,7 @@ const Page = () => {
                     })}
                   />
                 )}
-                {loginType === 'account' && (
+                {type === 'account' && (
                   <>
                     <ProFormText
                       name="account"
@@ -514,7 +541,7 @@ const Page = () => {
                 )}
 
                 {code !== 200 && loginType === 'mobile' && <LoginMessage content="验证码错误"/>}
-                {loginType === 'phone' && (
+                {type === 'phone' && (
                   <>
                     <ProFormText
                       fieldProps={{
@@ -533,11 +560,21 @@ const Page = () => {
                       rules={[
                         {
                           required: true,
-                          message: '请输入手机号！',
+                          message: (
+                            <FormattedMessage
+                              id="pages.login.phoneNumber.required"
+                              defaultMessage="请输入手机号！"
+                            />
+                          ),
                         },
                         {
                           pattern: /^1\d{10}$/,
-                          message: '手机号格式错误！',
+                          message: (
+                            <FormattedMessage
+                              id="pages.login.phoneNumber.invalid"
+                              defaultMessage="手机号格式错误！"
+                            />
+                          ),
                         },
                       ]}
                     />
@@ -556,21 +593,41 @@ const Page = () => {
                       captchaProps={{
                         size: 'large',
                       }}
-                      placeholder={'请输入验证码'}
+                      placeholder={intl.formatMessage({
+                        id: 'pages.login.captcha.placeholder',
+                        defaultMessage: '请输入验证码',
+                      })}
                       captchaTextRender={(timing, count) => {
                         if (timing) {
-                          return `${count} ${'获取验证码'}`;
+                          return `${count} ${intl.formatMessage({
+                            id: 'pages.getCaptchaSecondText',
+                            defaultMessage: '获取验证码',
+                          })}`;
                         }
-                        return '获取验证码';
+                        return intl.formatMessage({
+                          id: 'pages.login.phoneLogin.getVerificationCode',
+                          defaultMessage: '获取验证码',
+                        });
                       }}
                       name="captcha"
                       rules={[
                         {
                           required: true,
-                          message: '请输入验证码！',
+                          message: (
+                            <FormattedMessage
+                              id="pages.login.captcha.required"
+                              defaultMessage="请输入验证码！"
+                            />
+                          ),
                         },
                       ]}
-                      onGetCaptcha={async () => {
+                      onGetCaptcha={async (phone) => {
+                        const result = await getFakeCaptcha({
+                          phone,
+                        });
+                        if (!result) {
+                          return;
+                        }
                         message.success('获取验证码成功！验证码为：1234');
                       }}
                     />
@@ -578,7 +635,7 @@ const Page = () => {
                 )}
 
                 {code !== 200 && loginType === 'email' && <LoginMessage content="验证码错误"/>}
-                {loginType === 'email' && (
+                {type === 'email' && (
                   <>
                     <ProFormText
                       fieldProps={{
@@ -678,7 +735,7 @@ const Page = () => {
                   <ProFormCheckbox noStyle name="autoLogin">
                     <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录"/>
                   </ProFormCheckbox>
-                  {loginType === 'account' && (
+                  {type === 'account' && (
                     <a
                       style={{
                         float: 'right',
@@ -701,10 +758,4 @@ const Page = () => {
   );
 };
 
-export default () => {
-  return (
-    <ProConfigProvider dark>
-      <Page />
-    </ProConfigProvider>
-  );
-};
+export default Login;

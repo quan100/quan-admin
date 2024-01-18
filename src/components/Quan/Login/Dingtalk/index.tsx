@@ -52,7 +52,6 @@ interface IDTLoginSuccess {
 }
 
 export type LoginProps<T = Record<string, any>, K = any> = {
-  size?: 'default' | 'small';
   onClose?: MouseEventHandler<T> | undefined;
   api: {
     clientId: string;
@@ -66,6 +65,9 @@ export type LoginProps<T = Record<string, any>, K = any> = {
     authUri: string;
   },
   login: Function;
+  id?: string;      // 选传，包裹容器元素ID，不带'#'，默认ding-login-auth-img
+  width?: number;  // 选传，二维码iframe元素宽度，最小280，默认300
+  height?: number; // 选传，二维码iframe元素高度，最小280，默认300
 };
 
 const jssdk = "https://g.alicdn.com/dingding/h5-dingtalk-login/0.21.0/ddlogin.js";
@@ -85,7 +87,7 @@ function dingAccountLogin(clientId: string, redirectPath: string | undefined) {
   location.href = url;
 }
 
-const DingtalkLogin: React.FC<LoginProps> = ({ ...props }) => {
+const DingtalkLogin: React.FC<LoginProps> = ({ id = 'ding-login-auth-img', width = 280, height = 280, ...props }) => {
 
   const [loading, setLoading] = React.useState<boolean>(true);
   const [loadingMsg, setLoadingMsg] = React.useState<string>();
@@ -106,9 +108,9 @@ const DingtalkLogin: React.FC<LoginProps> = ({ ...props }) => {
     // STEP3：在需要的时候，调用 window.DTFrameLogin 方法构造登录二维码，并处理登录成功或失败的回调。
     window.DTFrameLogin(
       {
-        id: 'ding-login-auth-img',
-        width: 250,
-        height: 250
+        id: id,
+        width: width,
+        height: height
       },
       {
         redirect_uri: encodeURIComponent(props.api.authUri),
@@ -136,9 +138,6 @@ const DingtalkLogin: React.FC<LoginProps> = ({ ...props }) => {
 
   return (
     <ProCard
-      bordered
-      ghost
-      split={'horizontal'}
       actions={
         props.api.redirectUri && (
           <div onClick={function () {
@@ -150,44 +149,23 @@ const DingtalkLogin: React.FC<LoginProps> = ({ ...props }) => {
           </div>
         )
       }
-    >
-      <ProCard
-        layout={"center"}
-        style={{
-          backgroundColor: "rgba(255, 255, 255, 0.8)",
-          borderRadius: "unset",
-        }}
-      >
-        <div
-          style={{
-            position: "relative",
-          }}
-        >
-          <span>钉钉 App</span>
-        </div>
-        <span
-          style={{
-            position: "absolute",
-            cursor: "pointer",
-            right: "5%",
-          }}
-          onClick={props.onClose}
-        >
+      boxShadow
+      title={
+        <span>钉钉登录</span>
+      }
+      headerBordered={true}
+      extra={
+        <a onClick={props.onClose}>
           <CloseOutlined/>
-        </span>
-      </ProCard>
-      <ProCard
-        layout={"center"}
-        ghost
-        bodyStyle={{
-          backgroundColor: "rgba(255, 255, 255, 0.8)",
-        }}
-      >
+        </a>
+      }
+    >
+      <div>
         <Spin tip={loadingMsg} spinning={loading}>
-          <div id="ding-login-auth-img"></div>
+          <div id={id}></div>
           <Divider plain><span>请使用钉钉扫描二维码登录</span></Divider>
         </Spin>
-      </ProCard>
+      </div>
     </ProCard>
   )
 };

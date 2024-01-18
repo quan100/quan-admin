@@ -173,10 +173,10 @@ const Login: React.FC = () => {
     clientId: string;
   }>({
     // 钉钉登录授权API
-    authUri: "https://admin.quan.icu/api/dingtalk/login/auth",
+    authUri: "https://" + window.location.host + "/api/dingtalk/login/auth",
     // 钉钉账号登录重定向页面
-    redirectUri: "https://admin.quan.icu/user/login",
-    clientId: "dingndijcvquhq1kpboy",
+    redirectUri: "https://" + window.location.host + "/user/login",
+    clientId: "dinguzimxqt3namvm78w",
   });
 
   const [loginLoadingMsg, setLoginLoadingMsg] = React.useState<string>("登录中，请稍后...");

@@ -63,7 +63,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         return initialState?.currentUser?.menuData;
       },
     },
-    actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
+    // actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
     avatarProps: {
       src: initialState?.currentUser?.avatar,
       title: <AvatarName />,
@@ -102,14 +102,12 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         width: '331px',
       },
     ],
-    links: isDev
-      ? [
-          <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-            <LinkOutlined />
-            <span>OpenAPI 文档</span>
-          </Link>,
-        ]
-      : [],
+    links: [
+      <a key="openapi" href="https://javaquan.cn/" target="_blank">
+        <LinkOutlined/>
+        <span>JavaQuan 主页</span>
+      </a>,
+    ],
     menuHeaderRender: undefined,
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,

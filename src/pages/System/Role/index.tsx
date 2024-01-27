@@ -20,6 +20,7 @@ import AuthForm from "@/pages/System/Role/components/AuthForm";
 import { treePermissions } from "@/services/system/permission";
 import { useParams } from 'react-router-dom';
 import { useAccess, Access } from 'umi';
+import { valueEnum } from "@/components/Quan/Dictionary/Value";
 
 /**
  * @en-US Add node
@@ -158,6 +159,14 @@ const Role: React.FC = () => {
   React.useEffect(handleAuth, [])
 
   const [checkedKeys, setCheckedKeys] = useState<number[]>();
+
+  const [roleStatus, setRoleStatus] = useState<any>({});
+  React.useEffect(() => {
+    valueEnum("roleStatus").then(res => {
+      setRoleStatus(res);
+    });
+  }, []);
+
   /**
    * @en-US International configuration
    * @zh-CN 国际化配置
@@ -182,22 +191,7 @@ const Role: React.FC = () => {
       title: <FormattedMessage id="pages.role.column.status"/>,
       dataIndex: 'status',
       hideInForm: true,
-      valueEnum: {
-        0: {
-          text: (
-            <FormattedMessage
-              id="pages.role.column.status.enabled"
-            />
-          ),
-          status: 'Processing',
-        },
-        1: {
-          text: (
-            <FormattedMessage id="pages.role.column.status.disabled"/>
-          ),
-          color: 'red',
-        },
-      },
+      valueEnum: roleStatus,
       // search: false
     },
     {

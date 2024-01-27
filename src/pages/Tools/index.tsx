@@ -18,6 +18,7 @@ import React, { useRef, useState } from 'react';
 import SaveForm from './components/SaveForm';
 import Icon from "@/components/Quan/Icon";
 import { useAccess, Access } from 'umi';
+import { valueEnum } from "@/components/Quan/Dictionary/Value";
 
 /**
  * @en-US Add
@@ -108,6 +109,26 @@ const Role: React.FC = () => {
   const [selectedRowsState, setSelectedRows] = useState<API.Tools[]>([]);
   const [readOnly, setReadOnly] = useState<boolean>(false);
 
+  const [examineStatus, setExamineStatus] = useState<any>({});
+  const [jumpType, setJumpType] = useState<any>({});
+  const [listType, setListType] = useState<any>({});
+  const [dataType, setDataType] = useState<any>({});
+
+  React.useEffect(() => {
+    valueEnum("examineStatus").then(res => {
+      setExamineStatus(res);
+    });
+    valueEnum("jumpType").then(res => {
+      setJumpType(res);
+    });
+    valueEnum("listType").then(res => {
+      setListType(res);
+    });
+    valueEnum("dataType").then(res => {
+      setDataType(res);
+    });
+  }, []);
+
   /**
    * @en-US International configuration
    * @zh-CN 国际化配置
@@ -128,82 +149,27 @@ const Role: React.FC = () => {
     {
       title: <FormattedMessage id="pages.tools.dataType"/>,
       dataIndex: 'dataType',
-      valueEnum: {
-        1: {
-          text: (
-            <FormattedMessage id="pages.tools.dataType_1"/>
-          ),
-        },
-        2: {
-          text: (
-            <FormattedMessage id="pages.tools.dataType_2"/>
-          ),
-        },
-        3: {
-          text: (
-            <FormattedMessage id="pages.tools.dataType_3"/>
-          ),
-        },
-      },
+      valueEnum: dataType,
     },
     {
       title: <FormattedMessage id="pages.tools.listType"/>,
       dataIndex: 'listType',
       hideInForm: true,
-      valueEnum: {
-        1: {
-          text: (
-            <FormattedMessage
-              id="pages.tools.listType_1"
-            />
-          ),
-        },
-        2: {
-          text: (
-            <FormattedMessage id="pages.tools.listType_2"/>
-          ),
-        },
-      },
+      valueEnum: listType,
       // search: false
     },
     {
       title: <FormattedMessage id="pages.tools.jumpType"/>,
       dataIndex: 'jumpType',
       hideInForm: true,
-      valueEnum: {
-        1: {
-          text: (
-            <FormattedMessage
-              id="pages.tools.jumpType_1"
-            />
-          ),
-        },
-        2: {
-          text: (
-            <FormattedMessage id="pages.tools.jumpType_2"/>
-          ),
-        },
-      },
+      valueEnum: jumpType,
       // search: false
     },
     {
       title: <FormattedMessage id="pages.common.status"/>,
       dataIndex: 'status',
       hideInForm: true,
-      valueEnum: {
-        0: {
-          text: (<FormattedMessage id="pages.common.status.0"/>),
-          color: 'green',
-        },
-        1: {
-          text: (<FormattedMessage id="pages.common.status.1"/>),
-          color: 'yellow',
-        },
-        2: {
-          text: (<FormattedMessage id="pages.common.status.2"/>),
-          color: 'red',
-        },
-      },
+      valueEnum: examineStatus,
       // search: false
     },
     {

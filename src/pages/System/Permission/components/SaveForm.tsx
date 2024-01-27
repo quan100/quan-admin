@@ -9,6 +9,7 @@ import { useIntl } from '@umijs/max';
 import React, { useState } from 'react';
 import { treePermissions } from "@/services/system/permission";
 import DictionaryFormSelect from "@/components/Quan/Dictionary/Select";
+import DictionaryProFormRadioGroup from "@/components/Quan/Dictionary/Radio/Group";
 
 
 export type UpdateFormProps = {
@@ -87,8 +88,9 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           />
         </>
       )}
-      <ProFormSelect
+      <DictionaryFormSelect
         name="appType"
+        code="appType"
         width="md"
         disabled
         label={
@@ -96,14 +98,6 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             id: 'pages.permission.createForm.appType',
           })
         }
-        valueEnum={{
-          CLIENT_BFF: intl.formatMessage({
-            id: 'pages.common.appType.clientBff',
-          }),
-          MANAGER_BFF: intl.formatMessage({
-            id: 'pages.common.appType.managerBff',
-          }),
-        }}
         placeholder={
           intl.formatMessage({
             id: 'pages.permission.createForm.appType.placeholder',
@@ -115,8 +109,9 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           })
         }]}
       />
-      <ProFormRadio.Group
+      <DictionaryProFormRadioGroup
         name="type"
+        code="permissionType"
         width="md"
         label={
           intl.formatMessage({
@@ -131,26 +126,6 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             setType(value)
           }
         }}
-        options={[
-          {
-            label: intl.formatMessage({
-              id: 'pages.permission.type.parentMenu',
-            }),
-            value: 0,
-          },
-          {
-            label: intl.formatMessage({
-              id: 'pages.permission.type.menu',
-            }),
-            value: 1,
-          },
-          {
-            label: intl.formatMessage({
-              id: 'pages.permission.type.button',
-            }),
-            value: 2,
-          },
-        ]}
         rules={[{
           required: true, message: intl.formatMessage({
             id: 'pages.permission.createForm.type.placeholder',
@@ -338,8 +313,9 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
               })
             }
           />
-          <ProFormRadio.Group
+          <DictionaryProFormRadioGroup
             name="target"
+            code="target"
             width="md"
             label={
               intl.formatMessage({
@@ -350,26 +326,6 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
               defaultValue: "",
               optionType: "button",
             }}
-            options={[
-              {
-                label: intl.formatMessage({
-                  id: 'pages.permission.createForm.target.default',
-                }),
-                value: "",
-              },
-              {
-                label: intl.formatMessage({
-                  id: 'pages.permission.createForm.target.self',
-                }),
-                value: "_self",
-              },
-              {
-                label: intl.formatMessage({
-                  id: 'pages.permission.createForm.target.blank',
-                }),
-                value: "_blank",
-              },
-            ]}
           />
           <ProFormSwitch
             name="flatMenu"

@@ -5,6 +5,8 @@ import {
 } from '@ant-design/pro-components';
 import { useIntl } from '@umijs/max';
 import React from "react";
+import DictionaryFormSelect from "@/components/Quan/Dictionary/Select";
+import DictionaryProFormRadioGroup from "@/components/Quan/Dictionary/Radio/Group";
 
 export type UpdateFormProps = {
   onCancel: (flag?: boolean, formVals?: API.SysRole) => void;
@@ -68,8 +70,9 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           />
         </>
       )}
-      <ProFormSelect
+      <DictionaryFormSelect
         name="appType"
+        code="appType"
         width="md"
         disabled
         label={
@@ -77,14 +80,6 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             id: 'pages.common.appType',
           })
         }
-        valueEnum={{
-          CLIENT_BFF: intl.formatMessage({
-            id: 'pages.common.appType.clientBff',
-          }),
-          MANAGER_BFF: intl.formatMessage({
-            id: 'pages.common.appType.managerBff',
-          }),
-        }}
         placeholder={
           intl.formatMessage({
             id: 'pages.common.appType.placeholder',
@@ -139,8 +134,9 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           })
         }]}
       />
-      <ProFormRadio.Group
+      <DictionaryProFormRadioGroup
         name="status"
+        code="roleStatus"
         width="md"
         label={
           intl.formatMessage({
@@ -159,20 +155,6 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           // onChange: ({ target: { value } }) => {
           // }
         }}
-        options={[
-          {
-            label: intl.formatMessage({
-              id: 'pages.role.column.status.enabled',
-            }),
-            value: 0,
-          },
-          {
-            label: intl.formatMessage({
-              id: 'pages.role.column.status.disabled',
-            }),
-            value: 1,
-          },
-        ]}
         rules={[{
           required: true, message: intl.formatMessage({
             id: 'pages.role.column.status.placeholder',

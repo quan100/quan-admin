@@ -18,6 +18,7 @@ import {
   api
 } from '@/services/file/api';
 import DictionaryFormSelect from "@/components/Quan/Dictionary/Select";
+import DictionaryProFormRadioGroup from "@/components/Quan/Dictionary/Radio/Group";
 
 export type UpdateFormProps = {
   onCancel: (flag?: boolean, formVals?: API.Article) => void;
@@ -203,9 +204,10 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
               maxLength: 256,
             }}
           />
-          <ProFormRadio.Group
+          <DictionaryProFormRadioGroup
             name="publishType"
             width="md"
+            code="publishType"
             label={
               intl.formatMessage({ id: 'pages.article.publishType', })
             }
@@ -217,20 +219,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
                 setType(value)
               }
             }}
-            options={[
-              {
-                label: intl.formatMessage({ id: 'pages.article.publishType.1', }),
-                value: 1,
-              },
-              {
-                label: intl.formatMessage({ id: 'pages.article.publishType.2', }),
-                value: 2,
-              },
-              {
-                label: intl.formatMessage({ id: 'pages.article.publishType.3', }),
-                value: 3,
-              },
-            ]}
             rules={[{
               required: true,
               message: intl.formatMessage({ id: 'pages.article.publishType.placeholder', })
@@ -239,7 +227,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
           />
           <DictionaryFormSelect
             name="jumpType"
-            code="commonListJumpType"
+            code="jumpType"
             width="md"
             label={
               intl.formatMessage({
@@ -289,9 +277,10 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
             }
             disabled={disabled}
           />
-          <ProFormRadio.Group
+          <DictionaryProFormRadioGroup
             name="topping"
             width="md"
+            code="boolean"
             label={
               intl.formatMessage({ id: 'pages.article.topping.label', })
             }
@@ -299,31 +288,18 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
               intl.formatMessage({ id: 'pages.article.topping.tooltip', })
             }
             fieldProps={{
-              defaultValue: 0,
+              defaultValue: false,
               optionType: "button",
               buttonStyle: "solid",
               // onChange: ({ target: { value } }) => {
               // }
             }}
-            options={[
-              {
-                label: intl.formatMessage({
-                  id: 'pages.common.boolean.false',
-                }),
-                value: false,
-              },
-              {
-                label: intl.formatMessage({
-                  id: 'pages.common.boolean.true',
-                }),
-                value: true,
-              },
-            ]}
             disabled={disabled}
           />
-          <ProFormRadio.Group
+          <DictionaryProFormRadioGroup
             name="status"
             width="md"
+            code="articleStatus"
             label={
               intl.formatMessage({ id: 'pages.article.status', })
             }
@@ -335,20 +311,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
                 setType(value)
               }
             }}
-            options={[
-              {
-                label: intl.formatMessage({ id: 'pages.article.status.0', }),
-                value: 0,
-              },
-              {
-                label: intl.formatMessage({ id: 'pages.article.status.1', }),
-                value: 1,
-              },
-              {
-                label: intl.formatMessage({ id: 'pages.article.status.2', }),
-                value: 2,
-              },
-            ]}
             rules={[{
               required: true,
               message: intl.formatMessage({ id: 'pages.article.status.placeholder', })
@@ -417,8 +379,9 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
             }
             disabled={disabled}
           />
-          <ProFormRadio.Group
+          <DictionaryProFormRadioGroup
             name="authorAccountsPublic"
+            code="boolean"
             width="md"
             label={
               intl.formatMessage({ id: 'pages.article.authorAccountsPublic', })
@@ -427,34 +390,21 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
               intl.formatMessage({ id: 'pages.article.authorAccountsPublic.tooltip', })
             }
             fieldProps={{
-              defaultValue: 0,
+              defaultValue: false,
               optionType: "button",
               buttonStyle: "solid",
               // onChange: ({ target: { value } }) => {
               // }
             }}
-            options={[
-              {
-                label: intl.formatMessage({
-                  id: 'pages.common.boolean.false',
-                }),
-                value: false,
-              },
-              {
-                label: intl.formatMessage({
-                  id: 'pages.common.boolean.true',
-                }),
-                value: true,
-              },
-            ]}
             rules={[{
               required: true,
               message: intl.formatMessage({ id: 'pages.article.authorAccountsPublic.placeholder', })
             }]}
             disabled={disabled}
           />
-          <ProFormRadio.Group
+          <DictionaryProFormRadioGroup
             name="type"
+            code="articleType"
             width="md"
             label={
               intl.formatMessage({ id: 'pages.article.type', })
@@ -467,20 +417,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
                 setType(value)
               }
             }}
-            options={[
-              {
-                label: intl.formatMessage({ id: 'pages.article.type.1', }),
-                value: 1,
-              },
-              {
-                label: intl.formatMessage({ id: 'pages.article.type.2', }),
-                value: 2,
-              },
-              {
-                label: intl.formatMessage({ id: 'pages.article.type.3', }),
-                value: 3,
-              },
-            ]}
             rules={[{
               required: true,
               message: intl.formatMessage({ id: 'pages.article.type.placeholder', })

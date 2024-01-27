@@ -133,6 +133,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
             id: 'pages.tag.type.placeholder',
           })
         }]}
+        disabled={disabled}
       />
       <ProFormText
         name="color"

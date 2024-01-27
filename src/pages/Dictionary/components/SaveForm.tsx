@@ -5,7 +5,8 @@ import {
 } from '@ant-design/pro-components';
 import { useIntl } from '@umijs/max';
 import JsonEditor from "@/components/Quan/JsonEditor";
-import { useRef } from "react";
+import React, { useRef } from "react";
+import DictionaryFormSelect from "@/components/Quan/Dictionary/Select";
 
 export type UpdateFormProps = {
   onCancel: (flag?: boolean, formVals?: API.Dictionary) => void;
@@ -115,6 +116,27 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
         rules={[{
           required: true, message: intl.formatMessage({
             id: 'pages.dictionary.code.placeholder',
+          })
+        }]}
+        disabled={disabled}
+      />
+      <DictionaryFormSelect
+        name="type"
+        code="dictionary_type"
+        width="md"
+        label={
+          intl.formatMessage({
+            id: 'pages.dictionary.type',
+          })
+        }
+        placeholder={
+          intl.formatMessage({
+            id: 'pages.dictionary.type.placeholder',
+          })
+        }
+        rules={[{
+          required: true, message: intl.formatMessage({
+            id: 'pages.dictionary.type.placeholder',
           })
         }]}
         disabled={disabled}

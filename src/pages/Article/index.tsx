@@ -19,6 +19,7 @@ import React, { useRef, useState } from 'react';
 import SaveForm from './components/SaveForm';
 import Icon from "@/components/Quan/Icon";
 import { useAccess, Access } from 'umi';
+import { valueEnum } from "@/components/Quan/Dictionary/Value";
 
 /**
  * @en-US Add
@@ -109,6 +110,21 @@ const Role: React.FC = () => {
   const [selectedRowsState, setSelectedRows] = useState<API.Article[]>([]);
   const [readOnly, setReadOnly] = useState<boolean>(false);
 
+  const [articleType, setArticleType] = useState<any>({});
+  const [publishType, setPublishType] = useState<any>({});
+  const [articleStatus, setArticleStatus] = useState<any>({});
+  React.useEffect(() => {
+    valueEnum("articleType").then(res => {
+      setArticleType(res);
+    });
+    valueEnum("publishType").then(res => {
+      setPublishType(res);
+    });
+    valueEnum("articleStatus").then(res => {
+      setArticleStatus(res);
+    });
+  }, []);
+
   /**
    * @en-US International configuration
    * @zh-CN 国际化配置
@@ -138,60 +154,21 @@ const Role: React.FC = () => {
       title: <FormattedMessage id="pages.article.type"/>,
       dataIndex: 'type',
       hideInForm: true,
-      valueEnum: {
-        1: {
-          text: (<FormattedMessage id="pages.article.type.1"/>),
-          color: 'green',
-        },
-        2: {
-          text: (<FormattedMessage id="pages.article.type.2"/>),
-          color: 'orange',
-        },
-        3: {
-          text: (<FormattedMessage id="pages.article.type.3"/>),
-          color: 'Processing',
-        },
-      },
+      valueEnum: articleType,
       // search: false
     },
     {
       title: <FormattedMessage id="pages.article.publishType"/>,
       dataIndex: 'publishType',
       hideInForm: true,
-      valueEnum: {
-        1: {
-          text: (<FormattedMessage id="pages.article.publishType.1"/>),
-          color: 'green',
-        },
-        2: {
-          text: (<FormattedMessage id="pages.article.publishType.2"/>),
-          color: 'orange',
-        },
-        3: {
-          text: (<FormattedMessage id="pages.article.publishType.3"/>),
-          color: 'Processing',
-        },
-      },
+      valueEnum: publishType,
       // search: false
     },
     {
       title: <FormattedMessage id="pages.article.status"/>,
       dataIndex: 'status',
       hideInForm: true,
-      valueEnum: {
-        0: {
-          text: (<FormattedMessage id="pages.article.status.0"/>),
-          color: 'green',
-        },
-        1: {
-          text: (<FormattedMessage id="pages.article.status.1"/>),
-          color: 'yellow',
-        },
-        2: {
-          text: (<FormattedMessage id="pages.article.status.2"/>),
-          color: 'red',
-        },
-      },
+      valueEnum: articleStatus,
       // search: false
     },
     {
@@ -381,7 +358,7 @@ const Role: React.FC = () => {
           publishType: 1,
           sort: 0,
           status: 0,
-          authorAccountsPublic: 0,
+          authorAccountsPublic: false,
         }}
       />
       <SaveForm

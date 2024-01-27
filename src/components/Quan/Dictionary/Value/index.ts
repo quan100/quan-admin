@@ -27,6 +27,7 @@ export async function valueEnum(code: string, optionKey = 'value', optionValue =
       _option[item[optionKey]] = {
         text: item[optionValue],
         color: item['color'],
+        status: item['status'],
       };
     });
     return _option;

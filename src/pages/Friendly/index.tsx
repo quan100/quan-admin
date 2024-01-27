@@ -109,10 +109,10 @@ const Role: React.FC = () => {
   const [selectedRowsState, setSelectedRows] = useState<API.Friendly[]>([]);
   const [readOnly, setReadOnly] = useState<boolean>(false);
 
-  const [tagType, setTagType] = useState<any>({});
+  const [examineStatus, setExamineStatus] = useState<any>({});
   React.useEffect(() => {
-    valueEnum("article_tag_type").then(res => {
-      setTagType(res);
+    valueEnum("examineStatus").then(res => {
+      setExamineStatus(res);
     });
   }, []);
 
@@ -145,7 +145,12 @@ const Role: React.FC = () => {
       search: false
     },
     {
-      title: <FormattedMessage id="pages.friendly.remarks"/>,
+      title: <FormattedMessage id="pages.friendly.description"/>,
+      dataIndex: 'description',
+      search: false
+    },
+    {
+      title: <FormattedMessage id="pages.common.remark"/>,
       dataIndex: 'remarks',
       search: false
     },
@@ -153,20 +158,7 @@ const Role: React.FC = () => {
       title: <FormattedMessage id="pages.common.status"/>,
       dataIndex: 'status',
       hideInForm: true,
-      valueEnum: {
-        0: {
-          text: (<FormattedMessage id="pages.common.status.0"/>),
-          color: 'green',
-        },
-        1: {
-          text: (<FormattedMessage id="pages.common.status.1"/>),
-          color: 'yellow',
-        },
-        2: {
-          text: (<FormattedMessage id="pages.common.status.2"/>),
-          color: 'red',
-        },
-      },
+      valueEnum: examineStatus,
       // search: false
     },
     {

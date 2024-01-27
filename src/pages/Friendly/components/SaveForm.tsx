@@ -47,6 +47,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
         avatar: props.values.avatar,
         email: props.values.email,
         emailPublic: props.values.emailPublic,
+        description: props.values.description,
         remarks: props.values.remarks,
         status: props.values.status,
         sort: props.values.sort,
@@ -182,8 +183,9 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
         }}
         disabled={disabled}
       />
-      <ProFormRadio.Group
+      <DictionaryProFormRadioGroup
         name="status"
+        code="examineStatus"
         width="md"
         label={
           intl.formatMessage({ id: 'pages.common.status', })
@@ -196,20 +198,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
             // setType(value)
           }
         }}
-        options={[
-          {
-            label: intl.formatMessage({ id: 'pages.common.status.0', }),
-            value: 0,
-          },
-          {
-            label: intl.formatMessage({ id: 'pages.common.status.1', }),
-            value: 1,
-          },
-          {
-            label: intl.formatMessage({ id: 'pages.common.status.2', }),
-            value: 2,
-          },
-        ]}
         rules={[{
           required: true,
           message: intl.formatMessage({ id: 'pages.common.status.placeholder', })
@@ -237,15 +225,28 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
         disabled={disabled}
       />
       <ProFormTextArea
+        name="description"
+        width="md"
+        label={
+          intl.formatMessage({
+            id: 'pages.friendly.description',
+          })
+        }
+        placeholder={
+          intl.formatMessage({ id: 'pages.friendly.description.placeholder', })
+        }
+        disabled={disabled}
+      />
+      <ProFormTextArea
         name="remarks"
         width="md"
         label={
           intl.formatMessage({
-            id: 'pages.friendly.remarks',
+            id: 'pages.common.remark',
           })
         }
         placeholder={
-          intl.formatMessage({ id: 'pages.friendly.remarks.placeholder', })
+          intl.formatMessage({ id: 'pages.common.remark.placeholder', })
         }
         disabled={disabled}
       />

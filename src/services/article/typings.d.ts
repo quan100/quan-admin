@@ -72,7 +72,7 @@ declare namespace API {
     /**
      * 作者联系账号是否公开
      */
-    authorAccountsPublic?: number;
+    authorAccountsPublic?: boolean;
 
     /**
      * 备注

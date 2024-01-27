@@ -40,6 +40,11 @@ declare namespace API {
     remarks?: string;
 
     /**
+     * 站点描述
+     */
+    description?: string;
+
+    /**
      * 排序
      */
     sort?: number;

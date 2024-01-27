@@ -23,6 +23,7 @@ declare namespace API {
     phone?: string;
     nickName?: string;
     paths?: string[];
+    menuData?: any;
   };
 
   type LoginResult = {

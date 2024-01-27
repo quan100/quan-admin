@@ -18,6 +18,7 @@ import React, { useRef, useState } from 'react';
 import SaveForm from './components/SaveForm';
 import Icon from "@/components/Quan/Icon";
 import { useAccess, Access } from 'umi';
+import { valueEnum } from "@/components/Quan/Dictionary/Value";
 
 /**
  * @en-US Add
@@ -108,6 +109,13 @@ const Role: React.FC = () => {
   const [selectedRowsState, setSelectedRows] = useState<API.Dictionary[]>([]);
   const [readOnly, setReadOnly] = useState<boolean>(false);
 
+  const [dictionaryType, setDictionaryType] = useState<any>({});
+  React.useEffect(() => {
+    valueEnum("dictionary_type").then(res => {
+      setDictionaryType(res);
+    });
+  }, []);
+
   /**
    * @en-US International configuration
    * @zh-CN 国际化配置
@@ -132,6 +140,11 @@ const Role: React.FC = () => {
     {
       title: <FormattedMessage id="pages.dictionary.code"/>,
       dataIndex: 'code',
+    },
+    {
+      title: <FormattedMessage id="pages.dictionary.type"/>,
+      dataIndex: 'type',
+      valueEnum: dictionaryType,
     },
     {
       title: <FormattedMessage id="pages.dictionary.open"/>,

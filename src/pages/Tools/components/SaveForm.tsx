@@ -6,6 +6,7 @@ import {
 import { useIntl } from '@umijs/max';
 import React, { useRef } from "react";
 import DictionaryFormSelect from "@/components/Quan/Dictionary/Select";
+import DictionaryProFormRadioGroup from "@/components/Quan/Dictionary/Radio/Group";
 
 export type UpdateFormProps = {
   onCancel: (flag?: boolean, formVals?: API.Tools) => void;
@@ -113,7 +114,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
       <DictionaryFormSelect
         name="dataType"
         width="md"
-        code="commonListDataType"
+        code="dataType"
         label={
           intl.formatMessage({
             id: 'pages.tools.dataType',
@@ -129,11 +130,12 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
             id: 'pages.tools.dataType.placeholder',
           })
         }]}
+        disabled={disabled}
       />
       <DictionaryFormSelect
         name="listType"
         width="md"
-        code="commonListListType"
+        code="listType"
         label={
           intl.formatMessage({
             id: 'pages.tools.listType',
@@ -149,11 +151,12 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
             id: 'pages.tools.listType.placeholder',
           })
         }]}
+        disabled={disabled}
       />
       <DictionaryFormSelect
         name="jumpType"
         width="md"
-        code="commonListJumpType"
+        code="jumpType"
         label={
           intl.formatMessage({
             id: 'pages.tools.jumpType',
@@ -169,6 +172,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
             id: 'pages.tools.jumpType.placeholder',
           })
         }]}
+        disabled={disabled}
       />
       <ProFormText
         name="jumpUrl"
@@ -245,8 +249,9 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
         }
         disabled={disabled}
       />
-      <ProFormRadio.Group
+      <DictionaryProFormRadioGroup
         name="status"
+        code="examineStatus"
         width="md"
         label={
           intl.formatMessage({ id: 'pages.common.status', })
@@ -259,20 +264,6 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
             // setType(value)
           }
         }}
-        options={[
-          {
-            label: intl.formatMessage({ id: 'pages.common.status.0', }),
-            value: 0,
-          },
-          {
-            label: intl.formatMessage({ id: 'pages.common.status.1', }),
-            value: 1,
-          },
-          {
-            label: intl.formatMessage({ id: 'pages.common.status.2', }),
-            value: 2,
-          },
-        ]}
         rules={[{
           required: true,
           message: intl.formatMessage({ id: 'pages.common.status.placeholder', })

@@ -21,6 +21,7 @@ import Icon from "@/components/Quan/Icon";
 import { useParams } from 'react-router-dom';
 import { refreshGatewayCache, refreshSitemap, api as refreshApi } from "@/services/command/api";
 import { useAccess, Access } from 'umi';
+import { valueEnum } from "@/components/Quan/Dictionary/Value";
 
 /**
  * @en-US Add node
@@ -117,6 +118,13 @@ const Permission: React.FC = () => {
   const [currentRow, setCurrentRow] = useState<API.SysPermission>();
   const [selectedRowsState, setSelectedRows] = useState<API.SysPermission[]>([]);
 
+  const [permissionType, setPermissionType] = useState<any>({});
+  React.useEffect(() => {
+    valueEnum("permissionType").then(res => {
+      setPermissionType(res);
+    });
+  }, []);
+
   /**
    * @en-US International configuration
    * @zh-CN 国际化配置
@@ -157,28 +165,7 @@ const Permission: React.FC = () => {
       title: <FormattedMessage id="pages.permission.type"/>,
       dataIndex: 'type',
       hideInForm: true,
-      valueEnum: {
-        0: {
-          text: (
-            <FormattedMessage
-              id="pages.permission.type.parentMenu"
-            />
-          ),
-          status: 'Processing',
-        },
-        1: {
-          text: (
-            <FormattedMessage id="pages.permission.type.menu"/>
-          ),
-          color: 'blue',
-        },
-        2: {
-          text: (
-            <FormattedMessage id="pages.permission.type.button"/>
-          ),
-          color: 'yellow',
-        },
-      },
+      valueEnum: permissionType,
       search: false
     },
     {

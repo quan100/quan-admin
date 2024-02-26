@@ -48,6 +48,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ disabled = false, ...props }) =
         code: props.values.code,
         open: props.values.open,
         remark: props.values.remark,
+        type: props.values.type,
       }}
       drawerProps={{
         destroyOnClose: true,

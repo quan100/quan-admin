@@ -10,6 +10,7 @@ declare namespace API {
     open?: number;
     remark?: string;
     name?: string;
+    type?: string;
   };
 
   type DictionaryQuery = {

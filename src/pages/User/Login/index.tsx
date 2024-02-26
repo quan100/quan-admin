@@ -383,7 +383,7 @@ const Login: React.FC = () => {
                     }}
                     login={tripartiteLogin}
                   />
-                  : dom[0]
+                  : dom[1]
               )),
             }}
           >

@@ -175,7 +175,11 @@ const Permission: React.FC = () => {
       render: (val, record) => {
         const { icon } = record
         if (icon) {
-          return <Icon name={icon}/>;
+          try {
+            return <Icon name={icon}/>;
+          } catch (e) {
+            console.error(e);
+          }
         }
       },
     },

@@ -171,7 +171,8 @@ const SysUserAccount: React.FC = () => {
     {
       title: (<FormattedMessage id="pages.common.updateTime"/>),
       dataIndex: 'updateTime',
-      search: false
+      search: false,
+      ellipsis: true,
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating"/>,

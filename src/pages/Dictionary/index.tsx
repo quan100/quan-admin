@@ -136,6 +136,7 @@ const Role: React.FC = () => {
         />
       ),
       dataIndex: 'name',
+      ellipsis: true,
     },
     {
       title: <FormattedMessage id="pages.dictionary.code"/>,
@@ -171,7 +172,8 @@ const Role: React.FC = () => {
     {
       title: (<FormattedMessage id="pages.common.updateTime"/>),
       dataIndex: 'updateTime',
-      search: false
+      search: false,
+      ellipsis: true,
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating"/>,

@@ -129,10 +129,10 @@ const Role: React.FC = () => {
       dataIndex: 'id',
       search: false,
     },
-    {
-      title: <FormattedMessage id="pages.tag.tagId"/>,
-      dataIndex: 'tagId',
-    },
+    // {
+    //   title: <FormattedMessage id="pages.tag.tagId"/>,
+    //   dataIndex: 'tagId',
+    // },
     {
       title: <FormattedMessage id="pages.tag.name"/>,
       dataIndex: 'name',
@@ -162,7 +162,8 @@ const Role: React.FC = () => {
     {
       title: (<FormattedMessage id="pages.common.updateTime"/>),
       dataIndex: 'updateTime',
-      search: false
+      search: false,
+      ellipsis: true,
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating"/>,

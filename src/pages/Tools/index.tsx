@@ -145,6 +145,7 @@ const Role: React.FC = () => {
     {
       title: <FormattedMessage id="pages.tools.title"/>,
       dataIndex: 'title',
+      ellipsis: true,
     },
     {
       title: <FormattedMessage id="pages.tools.dataType"/>,

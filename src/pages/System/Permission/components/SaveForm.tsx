@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 import { treePermissions } from "@/services/system/permission";
 import DictionaryFormSelect from "@/components/Quan/Dictionary/Select";
 import DictionaryProFormRadioGroup from "@/components/Quan/Dictionary/Radio/Group";
+import IconSelect from "@/components/Quan/IconSelect";
 
 
 export type UpdateFormProps = {
@@ -274,12 +275,17 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
               })
             }
           />
-          <ProFormText
+          <IconSelect
             name="icon"
-            width="md"
+            width="sm"
             label={
               intl.formatMessage({
                 id: 'pages.permission.createForm.icon',
+              })
+            }
+            tooltip={
+              intl.formatMessage({
+                id: 'pages.permission.createForm.icon.tooltip',
               })
             }
             placeholder={
@@ -287,6 +293,13 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
                 id: 'pages.permission.createForm.icon.placeholder',
               })
             }
+            modal={{
+              title: "图标列表",
+              width: '60%',
+              buttonLabel: "选则图标",
+              alert: "点击列表中的图标即可选择图标代码。",
+            }}
+            preview
           />
           <ProFormDigit
             name="sort"

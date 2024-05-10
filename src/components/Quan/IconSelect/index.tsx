@@ -907,7 +907,7 @@ const IconSelect: React.FC<FormProps> = ({ ...props }) => {
             noStyle
             disabled
             fieldProps={{
-              suffix: props.preview ? (
+              suffix: props.preview && iconPreview ? (
                 <Popover
                   content={
                     <ProCard

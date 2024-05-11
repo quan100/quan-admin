@@ -6,8 +6,11 @@ import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history, Link } from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
-import {currentUser as queryCurrentUser, fetchMenuData} from '@/services/auth/api';
+import { currentUser as queryCurrentUser, fetchMenuData } from '@/services/auth/api';
 import React from 'react';
+import { MenuDataItem } from "@ant-design/pro-layout";
+import Icon from "@/components/Quan/Icon";
+
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 
@@ -50,6 +53,14 @@ export async function getInitialState(): Promise<{
   };
 }
 
+const loopMenuItem = (menus: any[]): MenuDataItem[] =>
+  menus.map(({ icon, routes, ...item }) => ({
+    ...item,
+    // icon: icon && IconMap[icon as 'smile'],
+    icon: icon && <Icon name={icon}/>,
+    children: routes && loopMenuItem(routes),
+  }));
+
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
@@ -60,13 +71,14 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       },
       request: async (params, defaultMenuData) => {
         // initialState.currentUser 中包含了所有用户信息
-        return initialState?.currentUser?.menuData;
+        const menuData = initialState?.currentUser?.menuData;
+        return loopMenuItem(menuData);
       },
     },
     // actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
     avatarProps: {
       src: initialState?.currentUser?.avatar,
-      title: <AvatarName />,
+      title: <AvatarName/>,
       render: (_, avatarChildren) => {
         return <AvatarDropdown>{avatarChildren}</AvatarDropdown>;
       },
@@ -74,7 +86,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     waterMarkProps: {
       content: initialState?.currentUser?.nickName,
     },
-    footerRender: () => <Footer />,
+    footerRender: () => <Footer/>,
     onPageChange: () => {
       const { location } = history;
       // 如果没有登录，重定向到 login

@@ -14,70 +14,91 @@ export default [
   // 首页
   {
     path: '/',
-    redirect: '/welcome',
+    redirect: '/sys/welcome',
     access: 'canPath',
   },
   {
-    path: '/welcome',
+    path: '/sys',
+    redirect: '/sys/welcome',
+    access: 'canPath',
+  },
+  {
+    path: '/sys/welcome',
     component: './Welcome',
     access: 'canPath',
   },
   // 内容管理
   {
-    path: '/article',
+    path: '/blog/cms/article',
     component: './Article',
     access: 'canPath',
   },
   {
-    path: '/category',
+    path: '/blog/cms/category',
     component: './Category',
     access: 'canPath',
   },
   {
-    path: '/tag',
+    path: '/blog/cms/tag',
     component: './Tag',
     access: 'canPath',
   },
   {
-    path: '/tools',
+    path: '/blog/cms/tools',
     component: './Tools',
     access: 'canPath',
   },
   {
-    path: '/friendly',
+    path: '/blog/cms/friendly',
     component: './Friendly',
     access: 'canPath',
   },
   // 系统管理
   {
-    path: '/system/:appType/permission',
+    path: '/sys/system/:appType/permission',
     component: './System/Permission',
     access: 'canPath',
   },
   {
-    path: '/system/:appType/role',
+    path: '/sys/system/:appType/role',
     component: './System/Role',
     access: 'canPath',
   },
   {
-    path: '/system/user',
+    path: '/sys/system/user',
     component: './System/User',
     access: 'canPath',
   },
   {
-    path: '/system/account',
+    path: '/sys/system/account',
     component: './System/User/Account',
     access: 'canPath',
   },
   {
-    path: '/system/third/account',
+    path: '/sys/system/third/account',
     component: './System/User/ThirdAccount',
     access: 'canPath',
   },
   // 字典管理
   {
-    path: '/dictionary',
+    path: '/sys/dictionary',
     component: './Dictionary',
+    access: 'canPath',
+  },
+  // 系统管理 - 博客系统
+  {
+    path: '/blog/:appType/permission',
+    component: './System/Permission',
+    access: 'canPath',
+  },
+  {
+    path: '/blog/:appType/role',
+    component: './System/Role',
+    access: 'canPath',
+  },
+  {
+    path: '/blog',
+    redirect: '/blog/cms/article',
     access: 'canPath',
   },
   {

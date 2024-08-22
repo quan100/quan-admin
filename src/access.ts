@@ -8,7 +8,11 @@ export default function access(initialState: { currentUser?: API.CurrentUser } |
     // canAdmin: currentUser && currentUser.access === 'admin',
     canPath: (route: any) => {
       let path = route.path;
-      path = path.replace(':appType', 'manager');
+      let appType = 'manager';
+      if (path.startsWith('/blog')) {
+        appType = 'client';
+      }
+      path = path.replace(':appType', appType);
       return paths && paths.includes(path);
     },
     canAction: (path: string): boolean => {

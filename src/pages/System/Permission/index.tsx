@@ -13,7 +13,7 @@ import {
   ProTable,
   ActionType, ProColumns, ProDescriptionsItemProps,
 } from '@ant-design/pro-components';
-import { FormattedMessage, useIntl } from '@umijs/max';
+import { FormattedMessage, useIntl, useModel } from '@umijs/max';
 import { Button, Drawer, message, Popconfirm } from 'antd';
 import React, { useRef, useState } from 'react';
 import SaveForm from './components/SaveForm';
@@ -124,6 +124,8 @@ const Permission: React.FC = () => {
       setPermissionType(res);
     });
   }, []);
+
+  const { refresh } = useModel('@@initialState');
 
   /**
    * @en-US International configuration
@@ -264,6 +266,22 @@ const Permission: React.FC = () => {
               }}
             >
               <Icon name="PlusOutlined"/> <FormattedMessage id="pages.searchTable.new" defaultMessage="New"/>
+            </Button>
+          </Access>,
+          <Access accessible={access.canAction(refreshApi.reloadCurrentAuthCache)}>
+            <Button
+              type="primary"
+              key="primary"
+              onClick={() => {
+                if (refresh) {
+                  refresh();
+                  message.success("刷新成功");
+                } else {
+                  message.error("刷新失败！");
+                }
+              }}
+            >
+              <FormattedMessage id="pages.system.command.refresh.reloadCurrentAuthCache" defaultMessage="Refresh"/>
             </Button>
           </Access>,
           <Access accessible={access.canAction(refreshApi.refreshGatewayCache)}>

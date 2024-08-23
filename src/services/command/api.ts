@@ -5,6 +5,7 @@ import { request } from '@umijs/max';
 export const api = {
   refreshGatewayCache: "/api/system/command/refresh/gateway/cache",
   refreshSitemap: "/api/system/command/refresh/sitemap",
+  reloadCurrentAuthCache: "/api/system/command/refresh/current/auth/cache",
 }
 
 /** 刷新网关权限缓存 */

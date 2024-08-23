@@ -112,6 +112,7 @@ export default {
 
   'pages.system.command.refresh.gatewayCache': '刷新网关权限缓存',
   'pages.system.command.refresh.sitemap': '刷新站点地图配置',
+  'pages.system.command.refresh.reloadCurrentAuthCache': '刷新当前登录权限',
 
   'pages.permission.updateForm.name.nameLabel': '名称',
   'pages.permission.search.name.tip': '仅支持一级菜单名称查询',

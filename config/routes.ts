@@ -101,6 +101,17 @@ export default [
     redirect: '/blog/cms/article',
     access: 'canPath',
   },
+  // chat
+  {
+    path: '/chat',
+    redirect: '/chat/demo',
+    access: 'canPath',
+  },
+  {
+    path: '/chat/demo',
+    access: 'canPath',
+    component: './Chat',
+  },
   {
     path: '*',
     component: './404',

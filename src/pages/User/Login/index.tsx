@@ -370,6 +370,13 @@ const Login: React.FC = () => {
             }}
 
             submitter={{
+              // 配置按钮的属性
+              resetButtonProps: {
+                style: {
+                  // 隐藏重置按钮
+                  display: 'none',
+                },
+              },
               render: ((props, dom: JSX.Element[]) => (
                 otherLoginType === 'dingtalk' ?
                   <Dingtalk
@@ -383,7 +390,7 @@ const Login: React.FC = () => {
                     }}
                     login={tripartiteLogin}
                   />
-                  : dom[1]
+                  : dom
               )),
             }}
           >

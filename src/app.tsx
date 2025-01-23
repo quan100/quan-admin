@@ -8,7 +8,7 @@ import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
 import { currentUser as queryCurrentUser, fetchMenuData } from '@/services/auth/api';
 import React from 'react';
-import { MenuDataItem } from "@ant-design/pro-layout";
+import type { MenuDataItem } from '@umijs/route-utils';
 import Icon from "@/components/Quan/Icon";
 
 const isDev = process.env.NODE_ENV === 'development';

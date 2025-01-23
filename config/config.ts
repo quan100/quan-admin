@@ -11,6 +11,13 @@ const { REACT_APP_ENV = 'dev' } = process.env;
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const productionGzipExtensions = ['js', 'css'];
 
+/**
+ * @name 使用公共路径
+ * @description 部署时的路径，如果部署在非根目录下，需要配置这个变量
+ * @doc https://umijs.org/docs/api/config#publicpath
+ */
+const PUBLIC_PATH: string = '/';
+
 export default defineConfig({
   /**
    * @name 开启 hash 模式
@@ -19,17 +26,21 @@ export default defineConfig({
    */
   hash: true,
 
-  chainWebpack(config, {}) {
-    // 开启gzip压缩
-    process.env.NODE_ENV == 'production' &&
-    config.plugin('CompressionWebpackPlugin').use(CompressionWebpackPlugin, [
-      {
-        algorithm: 'gzip',
-        test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
-        threshold: 10240,
-        minRatio: 0.8,
-      },
-    ]);
+  publicPath: PUBLIC_PATH,
+
+  mfsu: {
+    chainWebpack(config, {}) {
+      // 开启gzip压缩
+      process.env.NODE_ENV == 'production' &&
+      config.plugin('CompressionWebpackPlugin').use(CompressionWebpackPlugin, [
+        {
+          algorithm: 'gzip',
+          test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+          threshold: 10240,
+          minRatio: 0.8,
+        },
+      ]);
+    },
   },
 
   /**
@@ -144,8 +155,8 @@ export default defineConfig({
    */
   headScripts: [
     // 解决首次加载时白屏的问题
-    { src: '/scripts/loading.js', async: true },
-    { src: '/scripts/baidu.js', async: false },
+    { src: join(PUBLIC_PATH, 'scripts/loading.js'), async: true },
+    { src: join(PUBLIC_PATH, 'scripts/baidu.js'), async: false },
   ],
   //================ pro 插件配置 =================
   presets: ['umi-presets-pro'],
@@ -154,24 +165,26 @@ export default defineConfig({
    * @description 基于 openapi 的规范生成serve 和mock，能减少很多样板代码
    * @doc https://pro.ant.design/zh-cn/docs/openapi/
    */
-  openAPI: [
-    {
-      requestLibPath: "import { request } from '@umijs/max'",
-      // 或者使用在线的版本
-      // schemaPath: "https://gw.alipayobjects.com/os/antfincdn/M%24jrzTTYJN/oneapi.json"
-      schemaPath: join(__dirname, 'oneapi.json'),
-      mock: false,
-    },
-    {
-      requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'https://gw.alipayobjects.com/os/antfincdn/CA1dOm%2631B/openapi.json',
-      projectName: 'swagger',
-    },
-  ],
-  mfsu: {
-    strategy: 'normal',
-  },
-  requestRecord: {},
-  //  [esbuildHelperChecker] Found conflicts in esbuild helpers: we (2136.b98e8cc4.async.js, 4410.83af2013.async.js), please set esbuildMinifyIIFE: true in your config file.
+  // openAPI: [
+  //   {
+  //     requestLibPath: "import { request } from '@umijs/max'",
+  //     // 或者使用在线的版本
+  //     // schemaPath: "https://gw.alipayobjects.com/os/antfincdn/M%24jrzTTYJN/oneapi.json"
+  //     schemaPath: join(__dirname, 'oneapi.json'),
+  //     mock: false,
+  //   },
+  //   {
+  //     requestLibPath: "import { request } from '@umijs/max'",
+  //     schemaPath: 'https://gw.alipayobjects.com/os/antfincdn/CA1dOm%2631B/openapi.json',
+  //     projectName: 'swagger',
+  //   },
+  // ],
+  /**
+   * @name 是否开启 mako
+   * @description 使用 mako 极速研发
+   * @doc https://umijs.org/docs/api/config#mako
+   */
+  mako: {},
   esbuildMinifyIIFE: true,
+  requestRecord: {},
 });

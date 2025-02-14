@@ -7,10 +7,6 @@ import routes from './routes';
 
 const { REACT_APP_ENV = 'dev' } = process.env;
 
-// 开启gzip压缩
-const CompressionWebpackPlugin = require('compression-webpack-plugin');
-const productionGzipExtensions = ['js', 'css'];
-
 /**
  * @name 使用公共路径
  * @description 部署时的路径，如果部署在非根目录下，需要配置这个变量
@@ -27,21 +23,6 @@ export default defineConfig({
   hash: true,
 
   publicPath: PUBLIC_PATH,
-
-  mfsu: {
-    chainWebpack(config, {}) {
-      // 开启gzip压缩
-      process.env.NODE_ENV == 'production' &&
-      config.plugin('CompressionWebpackPlugin').use(CompressionWebpackPlugin, [
-        {
-          algorithm: 'gzip',
-          test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
-          threshold: 10240,
-          minRatio: 0.8,
-        },
-      ]);
-    },
-  },
 
   /**
    * @name 兼容性设置
@@ -187,4 +168,9 @@ export default defineConfig({
   mako: {},
   esbuildMinifyIIFE: true,
   requestRecord: {},
+
+
+  // 只设置 dev 阶段的 sourcemap
+  devtool: false,
+
 });

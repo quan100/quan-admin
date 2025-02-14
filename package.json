@@ -7,7 +7,7 @@
   "description": "An out-of-box UI solution for enterprise applications",
   "scripts": {
     "analyze": "cross-env ANALYZE=1 max build",
-    "build": "max build",
+    "build": "max build && find dist -type f \\( -name '*.js' -o -name '*.css' \\) -size +100k -print0 | xargs -0 gzip -k -9",
     "deploy": "npm run build && npm run gh-pages",
     "dev": "npm run start:dev",
     "gh-pages": "gh-pages -d dist",
@@ -47,7 +47,6 @@
     "antd": "^5.23.2",
     "antd-style": "^3.7.1",
     "classnames": "^2.5.1",
-    "compression-webpack-plugin": "^11.1.0",
     "dayjs": "^1.11.13",
     "jsoneditor": "^10.1.2",
     "lodash": "^4.17.21",

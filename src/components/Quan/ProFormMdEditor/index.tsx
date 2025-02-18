@@ -81,7 +81,7 @@ const ProFormMdEditor: React.FC<FormProps> = ({
         wrapperCol={{ span: 24 }}
       >
         <MdEditor
-          modelValue={value}
+          value={value}
           readOnly={props.disabled}
           onChange={function (v) {
             setValue(v);
